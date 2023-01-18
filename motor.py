@@ -11,6 +11,8 @@ class MOTOR:
     def Prepare_To_Act(self):
         self.amplitude = c.amplitudeBL
         self.frequency = c.frequencyBL
+        if len(self.jointName) == 14:
+            self.frequency /= 2
         self.offset = c.phaseOffsetBL
 
         self.motorValues = numpy.linspace(0, 2 * numpy.pi, c.steps)
@@ -24,3 +26,6 @@ class MOTOR:
             controlMode=p.POSITION_CONTROL,
             targetPosition=self.motorValues[t],
             maxForce=75)
+
+    def Save_Values(self):
+        numpy.save("data/motorValues.npy", self.motorValues)
