@@ -23,19 +23,7 @@ class SIMULATION:
         for t in range(c.steps):
             p.stepSimulation()
             self.robot.Sense(t)
-            # pyrosim.Set_Motor_For_Joint(
-            #     bodyIndex=self.robotId,
-            #     jointName=b'Torso_BackLeg',
-            #     controlMode=p.POSITION_CONTROL,
-            #     targetPosition=c.targetAnglesBL[i],
-            #     maxForce=75)
-            #
-            # pyrosim.Set_Motor_For_Joint(
-            #     bodyIndex=self.robotId,
-            #     jointName=b'Torso_FrontLeg',
-            #     controlMode=p.POSITION_CONTROL,
-            #     targetPosition=c.targetAnglesFL[i],
-            #     maxForce=75)
+            self.robot.Act(t)
 
             time.sleep(1/2400)
 
