@@ -12,21 +12,17 @@ class SIMULATION:
         self.physicsClient = p.connect(p.GUI)
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
 
+        p.setGravity(0, 0, -9.8)
+
         self.world = WORLD()
         self.robot = ROBOT()
 
-        p.setGravity(0,0,-9.8)
 
-        pyrosim.Prepare_To_Simulate(self.robot.robotId)
 
     def Run(self):
-        for i in range(c.steps):
-            print(i)
-
+        for t in range(c.steps):
             p.stepSimulation()
-            # c.backLegSensorValues[i] = pyrosim.Get_Touch_Sensor_Value_For_Link("BackLeg")
-            # c.frontLegSensorValues[i] = pyrosim.Get_Touch_Sensor_Value_For_Link("FrontLeg")
-            #
+            self.robot.Sense(t)
             # pyrosim.Set_Motor_For_Joint(
             #     bodyIndex=self.robotId,
             #     jointName=b'Torso_BackLeg',

@@ -10,9 +10,6 @@ amplitudeFL = numpy.pi / 3
 frequencyFL = 8
 phaseOffsetFL = 0
 
-backLegSensorValues = numpy.zeros(steps)
-frontLegSensorValues = numpy.zeros(steps)
-
 targetAnglesBL = numpy.linspace(0, 2 * numpy.pi, steps)
 for i in range(len(targetAnglesBL)):
     targetAnglesBL[i] = amplitudeBL * numpy.sin(frequencyBL * targetAnglesBL[i] + phaseOffsetBL)
