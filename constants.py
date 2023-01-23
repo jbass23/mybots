@@ -4,7 +4,7 @@ steps = 1000
 
 amplitudeBL = numpy.pi / 3
 frequencyBL = 8
-phaseOffsetBL = numpy.pi / 4
+phaseOffsetBL = 0
 
 amplitudeFL = numpy.pi / 3
 frequencyFL = 4
