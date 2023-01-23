@@ -3,7 +3,6 @@ from robot import ROBOT
 import constants as c
 import pybullet as p
 import pybullet_data
-import pyrosim.pyrosim as pyrosim
 import time
 
 
@@ -25,8 +24,6 @@ class SIMULATION:
             self.robot.Sense(t)
             self.robot.Think()
             self.robot.Act()
-
-            time.sleep(1/2400)
 
     def __del__(self):
         p.disconnect()
