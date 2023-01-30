@@ -14,4 +14,4 @@ length = 1
 width = 1
 height = 1
 
-numberOfGenerations = 2
+numberOfGenerations = 10
