@@ -7,8 +7,9 @@ import numpy as np
 
 
 class SOLUTION:
-    def __init__(self):
+    def __init__(self, nextAvailableID):
         self.weights = np.random.rand(3, 2) * 2 - 1
+        self.myID = nextAvailableID
 
     def Evaluate(self, directOrGUI):
         self.Create_World()
@@ -51,3 +52,6 @@ class SOLUTION:
 
     def Mutate(self):
         self.weights[random.randint(0, 2)][random.randint(0, 1)] = random.random() * 2 - 1
+
+    def Set_ID(self, ID):
+        self.myID = ID
