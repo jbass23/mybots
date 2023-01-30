@@ -16,14 +16,15 @@ class SIMULATION:
         self.world = WORLD()
         self.robot = ROBOT()
 
-
-
     def Run(self):
         for t in range(c.steps):
             p.stepSimulation()
             self.robot.Sense(t)
             self.robot.Think()
             self.robot.Act()
+
+    def Get_Fitness(self):
+        self.robot.Get_Fitness()
 
     def __del__(self):
         p.disconnect()

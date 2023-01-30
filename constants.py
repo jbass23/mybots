@@ -1,6 +1,6 @@
 import numpy
 
-steps = 250
+steps = 1000
 
 amplitudeBL = numpy.pi / 3
 frequencyBL = 8
