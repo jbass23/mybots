@@ -15,3 +15,4 @@ width = 1
 height = 1
 
 numberOfGenerations = 20
+populationSize = 2

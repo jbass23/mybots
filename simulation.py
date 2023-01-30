@@ -7,8 +7,8 @@ import time
 
 
 class SIMULATION:
-    def __init__(self, directoOrGUI):
-        if directoOrGUI == "DIRECT":
+    def __init__(self, directOrGUI):
+        if directOrGUI == "DIRECT":
             self.physicsClient = p.connect(p.DIRECT)
         else:
             self.physicsClient = p.connect(p.GUI)
