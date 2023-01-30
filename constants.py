@@ -13,3 +13,5 @@ phaseOffsetFL = 0
 length = 1
 width = 1
 height = 1
+
+numberOfGenerations = 2

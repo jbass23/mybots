@@ -1,3 +1,5 @@
+import random
+
 import constants as c
 import pyrosim.pyrosim as pyrosim
 import os
@@ -14,6 +16,9 @@ class SOLUTION:
         self.Create_Brain()
 
         os.system("python3 simulate.py")
+        f = open("fitness.txt", "r")
+        self.fitness = f.read()
+        f.close()
 
     def Create_World(self):
         pyrosim.Start_SDF("world.sdf")
@@ -43,3 +48,6 @@ class SOLUTION:
                                      weight=self.weights[currentRow][currentColumn])
 
         pyrosim.End()
+
+    def Mutate(self):
+        self.weights[random.randint(0, 2)][random.randint(0, 1)] = random.random() * 2 - 1
