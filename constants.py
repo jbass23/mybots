@@ -14,8 +14,8 @@ length = 1
 width = 1
 height = 1
 
-numSensorNeurons = 3
-numMotorNeurons = 2
+numSensorNeurons = 9
+numMotorNeurons = 8
 
 numberOfGenerations = 1
 populationSize = 1
