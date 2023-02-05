@@ -1,7 +1,5 @@
-import constants as c
 import pybullet as p
 import pyrosim.pyrosim as pyrosim
-import numpy
 
 class MOTOR:
     def __init__(self, jointName):
@@ -14,6 +12,3 @@ class MOTOR:
             controlMode=p.POSITION_CONTROL,
             targetPosition=desiredAngle,
             maxForce=75)
-
-    # def Save_Values(self):
-    #     numpy.save("data/motorValues.npy", self.motorValues)

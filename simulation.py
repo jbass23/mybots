@@ -3,7 +3,6 @@ from robot import ROBOT
 import constants as c
 import pybullet as p
 import pybullet_data
-import time
 
 
 class SIMULATION:
