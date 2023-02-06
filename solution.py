@@ -8,7 +8,8 @@ import time
 
 class SOLUTION:
     def __init__(self, nextAvailableID):
-        self.weights = np.random.rand(c.numSensorNeurons, c.numMotorNeurons) * 2 - 1
+        self.weights = np.random.rand(c.numSensorNeurons//2 + 1, c.numMotorNeurons//2) * 2 - 1
+        # self.weights = np.random.rand(c.numSensorNeurons, c.numMotorNeurons) * 2 - 1
         self.myID = nextAvailableID
 
     def Start_Simulation(self, directOrGUI):
@@ -29,6 +30,8 @@ class SOLUTION:
 
     def Create_World(self):
         pyrosim.Start_SDF("world.sdf")
+        # pyrosim.Send_Cube(name="Step1", pos=[-4, 0, 0.0625], size=[2, 10, 0.125], mass=1000)
+        # pyrosim.Send_Cube(name="Step2", pos=[-6, 0, 0.125], size=[2, 10, 0.25], mass=1000)
         pyrosim.End()
 
     def Create_Body(self):
@@ -84,12 +87,15 @@ class SOLUTION:
         for currentRow in range(c.numSensorNeurons):
             for currentColumn in range(c.numMotorNeurons):
                 pyrosim.Send_Synapse(sourceNeuronName=currentRow, targetNeuronName=currentColumn+c.numSensorNeurons,
-                                     weight=self.weights[currentRow][currentColumn])
+                                     weight=self.weights[currentRow//2][currentColumn//2])
+                # pyrosim.Send_Synapse(sourceNeuronName=currentRow, targetNeuronName=currentColumn+c.numSensorNeurons,
+                                    # weight=self.weights[currentRow][currentColumn])
 
         pyrosim.End()
 
     def Mutate(self):
-        self.weights[random.randint(0, c.numSensorNeurons - 1)][random.randint(0, c.numMotorNeurons - 1)] = random.random() * 2 - 1
+        self.weights[random.randint(0, c.numSensorNeurons//2)][random.randint(0, c.numMotorNeurons//2 - 1)] = random.random() * 2 - 1
+        # self.weights[random.randint(0, c.numSensorNeurons - 1)][random.randint(0, c.numMotorNeurons - 1)] = random.random() * 2 - 1
 
     def Set_ID(self, ID):
         self.myID = ID
