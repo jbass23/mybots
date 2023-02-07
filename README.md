@@ -1,5 +1,10 @@
 # My Bots
 
+### Fitness Function
+The perfect robot climbs the stairs in the negative x-direction.
+My fitness function remains the final x-coordinate of the robot, 
+as the stairs would inhibit robots that cannot climb them.
+
 ### What each file does:
 
 #### analyze.py
