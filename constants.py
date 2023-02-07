@@ -10,8 +10,8 @@ amplitudeFL = numpy.pi / 3
 frequencyFL = 4
 phaseOffsetFL = 0
 
-numSensorNeurons = 9
-numMotorNeurons = 8
+numSensorNeurons = 14
+numMotorNeurons = 13
 
 numberOfGenerations = 10
 populationSize = 10

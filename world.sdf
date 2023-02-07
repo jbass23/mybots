@@ -1,2 +1,122 @@
 <sdf>
+    <model name="Step1">
+        <pose>-4 0 0.0625 0 0 0 </pose>
+        <link name="Step1">
+            <inertial>
+                <mass>1000</mass>
+                <inertia>
+                    <ixx>0.083</ixx>
+                    <ixy>0.0</ixy>
+                    <ixz>0.0</ixz>
+                    <iyy>0.083</iyy>
+                    <iyz>0.0</iyz>
+                    <izz>0.083</izz>
+                </inertia>
+            </inertial>
+            <collision>
+                <geometry>
+                   <box>
+                      <size>2 10 0.125</size>
+                   </box>
+                </geometry>
+            </collision>
+            <visual>
+                <geometry>
+                   <box>
+                      <size>2 10 0.125</size>
+                   </box>
+                </geometry>
+            </visual>
+        </link>
+    </model>
+    <model name="Step2">
+        <pose>-6 0 0.125 0 0 0 </pose>
+        <link name="Step2">
+            <inertial>
+                <mass>1000</mass>
+                <inertia>
+                    <ixx>0.083</ixx>
+                    <ixy>0.0</ixy>
+                    <ixz>0.0</ixz>
+                    <iyy>0.083</iyy>
+                    <iyz>0.0</iyz>
+                    <izz>0.083</izz>
+                </inertia>
+            </inertial>
+            <collision>
+                <geometry>
+                   <box>
+                      <size>2 10 0.25</size>
+                   </box>
+                </geometry>
+            </collision>
+            <visual>
+                <geometry>
+                   <box>
+                      <size>2 10 0.25</size>
+                   </box>
+                </geometry>
+            </visual>
+        </link>
+    </model>
+    <model name="Step3">
+        <pose>-8 0 0.1875 0 0 0 </pose>
+        <link name="Step3">
+            <inertial>
+                <mass>1000</mass>
+                <inertia>
+                    <ixx>0.083</ixx>
+                    <ixy>0.0</ixy>
+                    <ixz>0.0</ixz>
+                    <iyy>0.083</iyy>
+                    <iyz>0.0</iyz>
+                    <izz>0.083</izz>
+                </inertia>
+            </inertial>
+            <collision>
+                <geometry>
+                   <box>
+                      <size>2 10 0.375</size>
+                   </box>
+                </geometry>
+            </collision>
+            <visual>
+                <geometry>
+                   <box>
+                      <size>2 10 0.375</size>
+                   </box>
+                </geometry>
+            </visual>
+        </link>
+    </model>
+    <model name="Step4">
+        <pose>-10 0 0.25 0 0 0 </pose>
+        <link name="Step4">
+            <inertial>
+                <mass>1000</mass>
+                <inertia>
+                    <ixx>0.083</ixx>
+                    <ixy>0.0</ixy>
+                    <ixz>0.0</ixz>
+                    <iyy>0.083</iyy>
+                    <iyz>0.0</iyz>
+                    <izz>0.083</izz>
+                </inertia>
+            </inertial>
+            <collision>
+                <geometry>
+                   <box>
+                      <size>2 10 0.5</size>
+                   </box>
+                </geometry>
+            </collision>
+            <visual>
+                <geometry>
+                   <box>
+                      <size>2 10 0.5</size>
+                   </box>
+                </geometry>
+            </visual>
+        </link>
+    </model>
 </sdf>
