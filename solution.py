@@ -1,5 +1,3 @@
-import numpy.random
-
 import constants as c
 import pyrosim.pyrosim as pyrosim
 import os
@@ -35,13 +33,13 @@ class SOLUTION:
 
     def Create_Body(self):
         pyrosim.Start_URDF("body.urdf")
-        baseSize = numpy.random.rand(3) * 1.5 + 0.5
+        baseSize = np.random.rand(3) * 1.5 + 0.5
         pyrosim.Send_Cube(name="Base", pos=[0, 0, 1], size=baseSize)
         pyrosim.Send_Joint(name="Base_Link0", parent="Base", child="Link0",
                            type="revolute", position=[baseSize[0] / -2, 0, 1], jointAxis="0 1 0")
 
         for i in range(c.numLinks):
-            linkSize = numpy.random.rand(3) * 1.5 + 0.5
+            linkSize = np.random.rand(3) * 1.5 + 0.5
             pyrosim.Send_Cube(name=f"Link{i}", pos=[linkSize[0] / -2, 0, 0], size=linkSize)
 
             if i+1 < c.numLinks:
