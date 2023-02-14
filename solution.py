@@ -10,6 +10,7 @@ class SOLUTION:
     def __init__(self, nextAvailableID):
         self.weights = np.random.rand(c.numSensorNeurons, c.numMotorNeurons) * 2 - 1
         self.myID = nextAvailableID
+        self.sensorBoolArray = np.random.randint(2, size=c.numSensorNeurons)
 
     def Start_Simulation(self, directOrGUI):
         self.Create_World()
@@ -34,13 +35,27 @@ class SOLUTION:
     def Create_Body(self):
         pyrosim.Start_URDF("body.urdf")
         baseSize = np.random.rand(3) * 1.5 + 0.5
-        pyrosim.Send_Cube(name="Base", pos=[0, 0, 1], size=baseSize)
+        if self.sensorBoolArray[0] == 1:
+            rgba = '    <color rgba="0 1.0 0 1.0"/>'
+            colorName = '<material name="Green">'
+        else:
+            rgba = '    <color rgba="0 0 1.0 1.0"/>'
+            colorName = '<material name="Blue">'
+
+        pyrosim.Send_Cube(name="Base", pos=[0, 0, 1], size=baseSize, rgba=rgba, colorName=colorName)
         pyrosim.Send_Joint(name="Base_Link0", parent="Base", child="Link0",
                            type="revolute", position=[baseSize[0] / -2, 0, 1], jointAxis="0 1 0")
 
         for i in range(c.numLinks):
             linkSize = np.random.rand(3) * 1.5 + 0.5
-            pyrosim.Send_Cube(name=f"Link{i}", pos=[linkSize[0] / -2, 0, 0], size=linkSize)
+            if self.sensorBoolArray[i+1] == 1:
+                rgba = '    <color rgba="0 1.0 0 1.0"/>'
+                colorName = '<material name="Green">'
+            else:
+                rgba = '    <color rgba="0 0 1.0 1.0"/>'
+                colorName = '<material name="Blue">'
+
+            pyrosim.Send_Cube(name=f"Link{i}", pos=[linkSize[0] / -2, 0, 0], size=linkSize, rgba=rgba, colorName=colorName)
 
             if i+1 < c.numLinks:
                 pyrosim.Send_Joint(name=f"Link{i}_Link{i+1}", parent=f"Link{i}", child=f"Link{i+1}",
@@ -50,17 +65,23 @@ class SOLUTION:
 
     def Create_Brain(self):
         pyrosim.Start_NeuralNetwork(f"brain{self.myID}.nndf")
-        pyrosim.Send_Sensor_Neuron(name=0, linkName="Base")
+        sensorCount = 0
+        if self.sensorBoolArray[0] == 1:
+            pyrosim.Send_Sensor_Neuron(name=sensorCount, linkName="Base")
+            sensorCount += 1
+
         for i in range(c.numLinks):
-            pyrosim.Send_Sensor_Neuron(name=i+1, linkName=f"Link{i}")
+            if self.sensorBoolArray[i+1] == 1:
+                pyrosim.Send_Sensor_Neuron(name=sensorCount, linkName=f"Link{i}")
+                sensorCount += 1
 
-        pyrosim.Send_Motor_Neuron(name=c.numSensorNeurons, jointName="Base_Link0")
+        pyrosim.Send_Motor_Neuron(name=sensorCount, jointName="Base_Link0")
         for i in range(c.numLinks-1):
-            pyrosim.Send_Motor_Neuron(name=c.numSensorNeurons+i+1, jointName=f"Link{i}_Link{i+1}")
+            pyrosim.Send_Motor_Neuron(name=sensorCount+i+1, jointName=f"Link{i}_Link{i+1}")
 
-        for currentRow in range(c.numSensorNeurons):
+        for currentRow in range(sensorCount):
             for currentColumn in range(c.numMotorNeurons):
-                pyrosim.Send_Synapse(sourceNeuronName=currentRow, targetNeuronName=currentColumn+c.numSensorNeurons,
+                pyrosim.Send_Synapse(sourceNeuronName=currentRow, targetNeuronName=currentColumn+sensorCount,
                                      weight=self.weights[currentRow][currentColumn])
 
         pyrosim.End()

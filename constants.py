@@ -10,7 +10,7 @@ amplitudeFL = numpy.pi / 3
 frequencyFL = 4
 phaseOffsetFL = 0
 
-numLinks = numpy.random.randint(3, 9)
+numLinks = numpy.random.randint(3, 9)   # excludes the base
 
 numSensorNeurons = numLinks + 1
 numMotorNeurons = numLinks
