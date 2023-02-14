@@ -30,10 +30,6 @@ class SOLUTION:
 
     def Create_World(self):
         pyrosim.Start_SDF("world.sdf")
-        pyrosim.Send_Cube(name="Step1", pos=[-4, 0, 0.0625], size=[2, 10, 0.125], mass=1000)
-        pyrosim.Send_Cube(name="Step2", pos=[-6, 0, 0.125], size=[2, 10, 0.25], mass=1000)
-        pyrosim.Send_Cube(name="Step3", pos=[-8, 0, 0.1875], size=[2, 10, 0.375], mass=1000)
-        pyrosim.Send_Cube(name="Step4", pos=[-10, 0, 0.25], size=[2, 10, 0.5], mass=1000)
         pyrosim.End()
 
     def Create_Body(self):
