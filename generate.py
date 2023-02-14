@@ -5,34 +5,51 @@ import random
 
 def Create_World():
     pyrosim.Start_SDF("world.sdf")
-    pyrosim.Send_Cube(name="Box", pos=[-3, 3, 0.5], size=[c.length, c.width, c.height])
     pyrosim.End()
 
 
-def Generate_Body():
+def Create_Body():
     pyrosim.Start_URDF("body.urdf")
-    pyrosim.Send_Cube(name="Torso", pos=[1.5, 0, 1.5], size=[c.length, c.width, c.height])
-    pyrosim.Send_Joint(name='Torso_BackLeg', parent="Torso", child="BackLeg", type="revolute", position=[1, 0, 1])
-    pyrosim.Send_Cube(name="BackLeg", pos=[-0.5, 0, -0.5], size=[c.length, c.width, c.height])
-    pyrosim.Send_Joint(name='Torso_FrontLeg', parent="Torso", child="FrontLeg", type="revolute", position=[2, 0, 1])
-    pyrosim.Send_Cube(name="FrontLeg", pos=[0.5, 0, -0.5], size=[c.length, c.width, c.height])
+    pyrosim.Send_Cube(name="Base", pos=[0, 0, 0.5], size=[1, 1, 1])
+    pyrosim.Send_Joint(name="Base_Link0", parent="Base", child="Link0",
+                       type="revolute", position=[-0.5, 0, 0.5], jointAxis="0 1 0")
+
+    for i in range(10):
+        # print(f"Link{i}")
+        pyrosim.Send_Cube(name=f"Link{i}", pos=[-0.5, 0, 0], size=[1, 1, 1])
+
+        if i + 1 < 10:
+            # print(f"Link{i}_Link{i+1}")
+            pyrosim.Send_Joint(name=f"Link{i}_Link{i + 1}", parent=f"Link{i}", child=f"Link{i + 1}",
+                               type="revolute", position=[-1, 0, 0], jointAxis="0 1 0")
+
     pyrosim.End()
 
-def Generate_Brain():
-    pyrosim.Start_NeuralNetwork("brain.nndf")
-    pyrosim.Send_Sensor_Neuron(name=0, linkName="Torso")
-    pyrosim.Send_Sensor_Neuron(name=1, linkName="BackLeg")
-    pyrosim.Send_Sensor_Neuron(name=2, linkName="FrontLeg")
-    pyrosim.Send_Motor_Neuron(name=3, jointName='Torso_BackLeg')
-    pyrosim.Send_Motor_Neuron(name=4, jointName='Torso_FrontLeg')
 
-    for sensor in range(3):
-        for motor in range(3, 5):
-            pyrosim.Send_Synapse(sourceNeuronName=sensor, targetNeuronName=motor, weight=(random.random() * 2 - 1))
+def Create_Brain():
+    pyrosim.Start_NeuralNetwork(f"brain0.nndf")
+    pyrosim.Send_Sensor_Neuron(name=0, linkName="Base")
+    for i in range(c.numLinks):
+        pyrosim.Send_Sensor_Neuron(name=i + 1, linkName=f"Link{i}")
+
+    pyrosim.Send_Motor_Neuron(name=c.numSensorNeurons, jointName="Base_Link0")
+    for i in range(c.numLinks - 1):
+        pyrosim.Send_Motor_Neuron(name=c.numSensorNeurons + i + 1, jointName=f"Link{i}_Link{i + 1}")
+
+    for currentRow in range(c.numSensorNeurons):
+        for currentColumn in range(c.numMotorNeurons):
+            # if currentRow <= 1:
+            #     pyrosim.Send_Synapse(sourceNeuronName=currentRow, targetNeuronName=currentColumn + c.numSensorNeurons,
+            #                          weight=self.weights[currentRow][(currentColumn + 1) // 2])
+            # else:
+            #     pyrosim.Send_Synapse(sourceNeuronName=currentRow, targetNeuronName=currentColumn + c.numSensorNeurons,
+            #                          weight=self.weights[(currentRow + 2) // 2][(currentColumn + 1) // 2])
+            pyrosim.Send_Synapse(sourceNeuronName=currentRow, targetNeuronName=currentColumn + c.numSensorNeurons,
+                                 weight=1)
 
     pyrosim.End()
 
 
 Create_World()
-Generate_Body()
-Generate_Brain()
+Create_Body()
+Create_Brain()

@@ -10,9 +10,11 @@ amplitudeFL = numpy.pi / 3
 frequencyFL = 4
 phaseOffsetFL = 0
 
-numSensorNeurons = 14
-numMotorNeurons = 13
+numLinks = numpy.random.randint(5, 15)
 
-numberOfGenerations = 10
-populationSize = 10
+numSensorNeurons = numLinks + 1
+numMotorNeurons = numLinks
+
+numberOfGenerations = 0
+populationSize = 1
 motorJointRange = 0.5
