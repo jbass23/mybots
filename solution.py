@@ -34,7 +34,7 @@ class SOLUTION:
 
     def Create_Body(self):
         pyrosim.Start_URDF("body.urdf")
-        baseSize = np.random.rand(3) * 1.5 + 0.5
+        baseSize = np.random.rand(3) * 1.25 + 0.25
         if self.sensorBoolArray[0] == 1:
             rgba = '    <color rgba="0 1.0 0 1.0"/>'
             colorName = '<material name="Green">'
@@ -47,7 +47,7 @@ class SOLUTION:
                            type="revolute", position=[baseSize[0] / -2, 0, 1], jointAxis="0 1 0")
 
         for i in range(c.numLinks):
-            linkSize = np.random.rand(3) * 1.5 + 0.5
+            linkSize = np.random.rand(3) * 1.25 + 0.25
             if self.sensorBoolArray[i+1] == 1:
                 rgba = '    <color rgba="0 1.0 0 1.0"/>'
                 colorName = '<material name="Green">'
