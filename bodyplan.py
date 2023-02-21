@@ -75,9 +75,24 @@ class BODY_PLAN:
             self.joints.append(jointobject.JOINT(parentID, self.linkID, relJointPos))
             self.Create_Link(xyz, direction, absJointPos)
 
-            if self.links[self.linkID - 1].aabb[2][0] >= 0:
+            if self.links[self.linkID - 1].aabb[2][0] >= 0 and not self.Detect_Collision(self.linkID - 1):
                 break
             else:
                 self.joints.pop()
                 self.links.pop()
                 self.linkID -= 1
+
+    def Detect_Collision(self, linkID):
+        for i in range(len(self.links)):
+            if i == linkID:
+                continue
+
+            if self.links[i].aabb[0][0] < self.links[linkID].aabb[0][1]:
+                if self.links[i].aabb[0][1] > self.links[linkID].aabb[0][0]:
+                    if self.links[i].aabb[1][0] < self.links[linkID].aabb[1][1]:
+                        if self.links[i].aabb[1][1] > self.links[linkID].aabb[1][0]:
+                            if self.links[i].aabb[2][0] < self.links[linkID].aabb[2][1]:
+                                if self.links[i].aabb[2][1] > self.links[linkID].aabb[2][0]:
+                                    return True
+
+        return False
