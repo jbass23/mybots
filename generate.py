@@ -3,6 +3,7 @@ import bodyplan
 import pyrosim.pyrosim as pyrosim
 
 bp = bodyplan.BODY_PLAN()
+print("calling create blueprint")
 links, joints = bp.Create_Blueprint()
 
 
@@ -36,7 +37,7 @@ def Create_Brain():
     for currentRow in range(c.numSensorNeurons):
         for currentColumn in range(c.numMotorNeurons):
             pyrosim.Send_Synapse(sourceNeuronName=currentRow, targetNeuronName=currentColumn + c.numSensorNeurons,
-                                 weight=1)
+                                 weight=0)
 
     # pyrosim.Send_Sensor_Neuron(name=0, linkName="Base")
     # for i in range(c.numLinks):
