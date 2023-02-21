@@ -1,10 +1,10 @@
 import constants as c
 import bodyplan
 import pyrosim.pyrosim as pyrosim
+import os
 import numpy as np
 
 bp = bodyplan.BODY_PLAN()
-print("calling create blueprint")
 links, joints = bp.Create_Blueprint()
 
 
@@ -51,3 +51,5 @@ def Create_Brain():
 Create_World()
 Create_Body()
 Create_Brain()
+
+os.system(f"python3 simulate.py GUI 0 2&>1")
