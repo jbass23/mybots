@@ -16,10 +16,6 @@ class BODY_PLAN:
         for i in range(c.numLinks):
             self.Create_Joint_Then_Link()
 
-        for i in self.links:
-            print(i)
-        for i in self.joints:
-            print(i)
         return self.links, self.joints
 
     def Create_Base_Link(self):
@@ -66,11 +62,7 @@ class BODY_PLAN:
                 direction = -1
 
             absJointPos = np.add(absLinkPos, pos)
-            print(absLinkPos)
-            print(absJointPos)
-            print(self.links[parentID].absJointPos)
             relJointPos = np.subtract(absJointPos, self.links[parentID].absJointPos)
-            print(relJointPos)
 
             self.joints.append(jointobject.JOINT(parentID, self.linkID, relJointPos))
             self.Create_Link(xyz, direction, absJointPos)
