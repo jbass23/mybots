@@ -9,7 +9,7 @@ on the body. Links with sensors are colored green, and links without
 sensors are colored blue.
 
 ## Running the Program
-Download the files and type `python3 generate.py` into your terminal to
+Download the files and type `python3 search.py` into your terminal to
 run. A python pop-up should appear with your random creature. Run
 again for a new creature.
 
