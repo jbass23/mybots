@@ -39,7 +39,6 @@ class SOLUTION:
 
     def Create_Body(self):
         pyrosim.Start_URDF("body.urdf")
-        # links, joints = self.bp.Create_Blueprint()
 
         for link in self.links:
             pyrosim.Send_Cube(name=link.name, pos=link.pos, size=link.size, rgba=link.rgba, colorName=link.colorName)
