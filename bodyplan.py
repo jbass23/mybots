@@ -93,7 +93,7 @@ class BODY_PLAN:
 
     def Mutate_Link_Size(self, linkID):
         mutated = False
-        for i in range(3):
+        for _ in range(3):
             # copy the lists of links and joints
             linksCopy = copy.deepcopy(self.links)
             jointsCopy = copy.deepcopy(self.joints)
@@ -131,9 +131,14 @@ class BODY_PLAN:
             self.Calculate_All_Absolute_Positions(linksCopy, jointsCopy)
 
             # check for collisions: if collision, restart with new size, if not, implement
+            collided = False
             for i in range(len(linksCopy)):
                 if linksCopy[i].aabb[2][0] < 0 or self.Detect_Collision(i, linksCopy):
-                    continue
+                    collided = True
+                    break
+
+            if collided:
+                continue
 
             self.links = copy.deepcopy(linksCopy)
             self.joints = copy.deepcopy(jointsCopy)
@@ -149,6 +154,6 @@ class BODY_PLAN:
                 links[i].absJointPos = [0, 0, 0]
             else:
                 upstreamLink = joints[i-1].parentID
-                links[i].absJointPos = np.sum(links[upstreamLink].absJointPos, joints[i-1].position)
+                links[i].absJointPos = links[upstreamLink].absJointPos + joints[i-1].position
 
             links[i].absolutePosition, links[i].aabb = links[i].Compute_Dimensions()

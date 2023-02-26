@@ -55,15 +55,15 @@ class SOLUTION:
 
         for i in range(c.numSensorNeurons):
             if self.bp.sensorBoolArray[i] == 1:
-                pyrosim.Send_Sensor_Neuron(name=sensorIndex, linkName=f"Link{i}")
+                pyrosim.Send_Sensor_Neuron(name=sensorIndex, linkName=f"Link{sensorIndex}")
                 sensorIndex += 1
 
         for i in range(len(self.joints)):
             pyrosim.Send_Motor_Neuron(name=sensorIndex+i, jointName=self.joints[i].name)
 
-        for currentRow in range(sensorIndex):
+        for currentRow in range(self.sensorCount):
             for currentColumn in range(c.numMotorNeurons):
-                pyrosim.Send_Synapse(sourceNeuronName=currentRow, targetNeuronName=currentColumn+sensorIndex,
+                pyrosim.Send_Synapse(sourceNeuronName=currentRow, targetNeuronName=currentColumn+self.sensorCount,
                                      weight=self.weights[currentRow][currentColumn])
 
     def Mutate(self):
@@ -80,6 +80,11 @@ class SOLUTION:
         #  - can result in zero or multiple changes
 
         self.weights[random.randint(0, self.sensorCount - 1)][random.randint(0, c.numMotorNeurons - 1)] = random.random() * 2 - 1
+
+        randLinkID = np.random.randint(0, len(self.links) - 1)
+        self.bp.Mutate_Link_Size(randLinkID)
+        self.links = self.bp.links
+        self.joints = self.bp.joints
 
     def Set_ID(self, ID):
         self.myID = ID
