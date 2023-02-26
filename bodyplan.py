@@ -69,66 +69,78 @@ class BODY_PLAN:
             self.joints.append(jointobject.JOINT(parentID, self.linkID, relJointPos))
             self.Create_Link(xyz, direction, absJointPos)
 
-            if self.links[self.linkID - 1].aabb[2][0] >= 0 and not self.Detect_Collision(self.linkID - 1):
+            if self.links[self.linkID - 1].aabb[2][0] >= 0 and not self.Detect_Collision(self.linkID - 1, self.links):
                 break
             else:
                 self.joints.pop()
                 self.links.pop()
                 self.linkID -= 1
 
-    def Detect_Collision(self, linkID):
-        for i in range(len(self.links)):
+    def Detect_Collision(self, linkID, links):
+        for i in range(len(links)):
             if i == linkID:
                 continue
 
-            if self.links[i].aabb[0][0] < self.links[linkID].aabb[0][1]:
-                if self.links[i].aabb[0][1] > self.links[linkID].aabb[0][0]:
-                    if self.links[i].aabb[1][0] < self.links[linkID].aabb[1][1]:
-                        if self.links[i].aabb[1][1] > self.links[linkID].aabb[1][0]:
-                            if self.links[i].aabb[2][0] < self.links[linkID].aabb[2][1]:
-                                if self.links[i].aabb[2][1] > self.links[linkID].aabb[2][0]:
+            if links[i].aabb[0][0] < links[linkID].aabb[0][1]:
+                if links[i].aabb[0][1] > links[linkID].aabb[0][0]:
+                    if links[i].aabb[1][0] < links[linkID].aabb[1][1]:
+                        if links[i].aabb[1][1] > links[linkID].aabb[1][0]:
+                            if links[i].aabb[2][0] < links[linkID].aabb[2][1]:
+                                if links[i].aabb[2][1] > links[linkID].aabb[2][0]:
                                     return True
 
         return False
 
     def Mutate_Link_Size(self, linkID):
-        # copy the lists of links and joints
-        linksCopy = copy.deepcopy(self.links)
-        jointsCopy = copy.deepcopy(self.joints)
+        mutated = False
+        for i in range(3):
+            # copy the lists of links and joints
+            linksCopy = copy.deepcopy(self.links)
+            jointsCopy = copy.deepcopy(self.joints)
 
-        # change the size of the link
-        xyz = np.random.randint(3)
-        newLength = np.random.rand() * 1.25 + 0.25
-        oldLength = linksCopy[linkID].size[xyz]
-        linksCopy[linkID].size[xyz] = newLength
+            # change the size of the link
+            xyz = np.random.randint(3)
+            newLength = np.random.rand() * 1.25 + 0.25
+            oldLength = linksCopy[linkID].size[xyz]
+            linksCopy[linkID].size[xyz] = newLength
 
-        # change the relative position of the link (only if it is already moving in the direction of the change)
-        if linkID != 0 and linksCopy[linkID].pos[xyz] != 0:
-            if linksCopy[linkID].pos[xyz] < 0:
-                linksCopy[linkID].pos[xyz] = newLength / -2
-            else:
-                linksCopy[linkID].pos[xyz] = newLength / 2
+            # change the relative position of the link (only if it is already moving in the direction of the change)
+            if linkID != 0 and linksCopy[linkID].pos[xyz] != 0:
+                if linksCopy[linkID].pos[xyz] < 0:
+                    linksCopy[linkID].pos[xyz] = newLength / -2
+                else:
+                    linksCopy[linkID].pos[xyz] = newLength / 2
 
-        # change the relative positions of joints off that link
-        for joint in jointsCopy:
-            if joint.parentID == linkID:
-                if joint.position[xyz] != 0:
-                    # at this point, we know we must change the joint.position
-                    if joint.position[xyz] < 0:
-                        if joint.position[xyz] == -1 * oldLength:
-                            joint.position[xyz] = -1 * newLength
+            # change the relative positions of joints off that link
+            for joint in jointsCopy:
+                if joint.parentID == linkID:
+                    if joint.position[xyz] != 0:
+                        # at this point, we know we must change the joint.position
+                        if joint.position[xyz] < 0:
+                            if joint.position[xyz] == -1 * oldLength:
+                                joint.position[xyz] = -1 * newLength
+                            else:
+                                joint.position[xyz] = newLength / -2
                         else:
-                            joint.position[xyz] = newLength / -2
-                    else:
-                        if joint.position[xyz] == oldLength:
-                            joint.position[xyz] = newLength
-                        else:
-                            joint.position[xyz] = newLength / 2
+                            if joint.position[xyz] == oldLength:
+                                joint.position[xyz] = newLength
+                            else:
+                                joint.position[xyz] = newLength / 2
 
-        # recalculate for absolute position and aabb for entire body
-        self.Calculate_All_Absolute_Positions(linksCopy, jointsCopy)
+            # recalculate for absolute position and aabb for entire body
+            self.Calculate_All_Absolute_Positions(linksCopy, jointsCopy)
 
-        # check for collisions: if collision, restart with new size, if not, implement
+            # check for collisions: if collision, restart with new size, if not, implement
+            for i in range(len(linksCopy)):
+                if linksCopy[i].aabb[2][0] < 0 or self.Detect_Collision(i, linksCopy):
+                    continue
+
+            self.links = copy.deepcopy(linksCopy)
+            self.joints = copy.deepcopy(jointsCopy)
+            mutated = True
+            break
+
+        return mutated
 
 
     def Calculate_All_Absolute_Positions(self, links, joints):
