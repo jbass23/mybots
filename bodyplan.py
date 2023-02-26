@@ -149,6 +149,6 @@ class BODY_PLAN:
                 links[i].absJointPos = [0, 0, 0]
             else:
                 upstreamLink = joints[i-1].parentID
-                links[i].absJointPos = np.sum(links[upstreamLink].absolutePosition, joints[i-1].position)
+                links[i].absJointPos = np.sum(links[upstreamLink].absJointPos, joints[i-1].position)
 
             links[i].absolutePosition, links[i].aabb = links[i].Compute_Dimensions()
