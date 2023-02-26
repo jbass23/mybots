@@ -88,3 +88,37 @@ class BODY_PLAN:
                                     return True
 
         return False
+
+    def Mutate_Link_Size(self, linkID):
+        # change the size of the link
+        xyz = np.random.randint(3)
+        newLength = np.random.rand() * 1.25 + 0.25
+        oldLength = self.links[linkID].size[xyz]
+        self.links[linkID].size[xyz] = newLength
+
+        # change the relative position of the link (only if it is already moving in the direction of the change)
+        if linkID != 0 and self.links[linkID].pos[xyz] != 0:
+            if self.links[linkID].pos[xyz] < 0:
+                self.links[linkID].pos[xyz] = newLength / -2
+            else:
+                self.links[linkID].pos[xyz] = newLength / 2
+
+        # change the relative positions of joints off that link
+        for joint in self.joints:
+            if joint.parentID == linkID:
+                if joint.position[xyz] != 0:
+                    # at this point, we know we must change the joint.position
+                    if joint.position[xyz] < 0:
+                        if joint.position[xyz] == -1 * oldLength:
+                            joint.position[xyz] = -1 * newLength
+                        else:
+                            joint.position[xyz] = newLength / -2
+                    else:
+                        if joint.position[xyz] == oldLength:
+                            joint.position[xyz] = newLength
+                        else:
+                            joint.position[xyz] = newLength / 2
+
+        # recalculate for absolute position and aabb for entire body
+
+        # check for collisions: if collision, restart with new size, if not, implement

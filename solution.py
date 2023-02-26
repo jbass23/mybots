@@ -67,6 +67,18 @@ class SOLUTION:
                                      weight=self.weights[currentRow][currentColumn])
 
     def Mutate(self):
+        # mutate:
+        #   - motors
+        #   - body
+        #       - change link direction
+        #       - change sensor status
+        #       - change one dimension of the link size
+        # PLAN:
+        # 1. loop through links
+        # 2. for each link, pick random number
+        # 3. if random number is within threshold, change one of those things above
+        #  - can result in zero or multiple changes
+
         self.weights[random.randint(0, self.sensorCount - 1)][random.randint(0, c.numMotorNeurons - 1)] = random.random() * 2 - 1
 
     def Set_ID(self, ID):
