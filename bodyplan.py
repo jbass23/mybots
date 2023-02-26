@@ -1,3 +1,5 @@
+import copy
+
 import constants as c
 import linkobject
 import jointobject
@@ -90,21 +92,25 @@ class BODY_PLAN:
         return False
 
     def Mutate_Link_Size(self, linkID):
+        # copy the lists of links and joints
+        linksCopy = copy.deepcopy(self.links)
+        jointsCopy = copy.deepcopy(self.joints)
+
         # change the size of the link
         xyz = np.random.randint(3)
         newLength = np.random.rand() * 1.25 + 0.25
-        oldLength = self.links[linkID].size[xyz]
-        self.links[linkID].size[xyz] = newLength
+        oldLength = linksCopy[linkID].size[xyz]
+        linksCopy[linkID].size[xyz] = newLength
 
         # change the relative position of the link (only if it is already moving in the direction of the change)
-        if linkID != 0 and self.links[linkID].pos[xyz] != 0:
-            if self.links[linkID].pos[xyz] < 0:
-                self.links[linkID].pos[xyz] = newLength / -2
+        if linkID != 0 and linksCopy[linkID].pos[xyz] != 0:
+            if linksCopy[linkID].pos[xyz] < 0:
+                linksCopy[linkID].pos[xyz] = newLength / -2
             else:
-                self.links[linkID].pos[xyz] = newLength / 2
+                linksCopy[linkID].pos[xyz] = newLength / 2
 
         # change the relative positions of joints off that link
-        for joint in self.joints:
+        for joint in jointsCopy:
             if joint.parentID == linkID:
                 if joint.position[xyz] != 0:
                     # at this point, we know we must change the joint.position
@@ -120,5 +126,17 @@ class BODY_PLAN:
                             joint.position[xyz] = newLength / 2
 
         # recalculate for absolute position and aabb for entire body
+        self.Calculate_All_Absolute_Positions(linksCopy, jointsCopy)
 
         # check for collisions: if collision, restart with new size, if not, implement
+
+
+    def Calculate_All_Absolute_Positions(self, links, joints):
+        for i in range(len(links)):
+            if i == 0:
+                links[i].absJointPos = [0, 0, 0]
+            else:
+                upstreamLink = joints[i-1].parentID
+                links[i].absJointPos = np.sum(links[upstreamLink].absolutePosition, joints[i-1].position)
+
+            links[i].absolutePosition, links[i].aabb = links[i].Compute_Dimensions()
