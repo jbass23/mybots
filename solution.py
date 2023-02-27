@@ -81,10 +81,17 @@ class SOLUTION:
 
         self.weights[random.randint(0, self.sensorCount - 1)][random.randint(0, c.numMotorNeurons - 1)] = random.random() * 2 - 1
 
-        randLinkID = np.random.randint(0, len(self.links) - 1)
-        self.bp.Mutate_Link_Size(randLinkID)
-        self.links = self.bp.links
-        self.joints = self.bp.joints
+        for i in range(len(self.links)):
+            mutateChance = np.random.randint(3)
+            if mutateChance == 0:
+                self.bp.Mutate_Link_Size(i)
+                self.links = self.bp.links
+                self.joints = self.bp.joints
+
+        # randLinkID = np.random.randint(0, len(self.links) - 1)
+        # self.bp.Mutate_Link_Size(randLinkID)
+        # self.links = self.bp.links
+        # self.joints = self.bp.joints
 
     def Set_ID(self, ID):
         self.myID = ID
