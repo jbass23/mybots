@@ -69,7 +69,8 @@ class BODY_PLAN:
             self.joints.append(jointobject.JOINT(parentID, self.linkID, relJointPos))
             self.Create_Link(xyz, direction, absJointPos)
 
-            if self.links[self.linkID - 1].aabb[2][0] >= 0 and not self.Detect_Collision(self.linkID - 1, self.links):
+            if self.links[self.linkID - 1].aabb[2][0] >= 0 and self.links[self.linkID - 1].aabb[2][1] <= 4 and \
+                    not self.Detect_Collision(self.linkID - 1, self.links):
                 break
             else:
                 self.joints.pop()
@@ -91,15 +92,15 @@ class BODY_PLAN:
 
         return False
 
-    def Mutate_Link_Size(self, linkID):
+    def Mutate_Link_Size(self, linkID, xyz):
         mutated = False
-        for _ in range(3):
+        for _ in range(5):
             # copy the lists of links and joints
             linksCopy = copy.deepcopy(self.links)
             jointsCopy = copy.deepcopy(self.joints)
 
             # change the size of the link
-            xyz = np.random.randint(3)
+            # xyz = np.random.randint(3)
             newLength = np.random.rand() * 1.25 + 0.25
             oldLength = linksCopy[linkID].size[xyz]
             linksCopy[linkID].size[xyz] = newLength
@@ -133,7 +134,7 @@ class BODY_PLAN:
             # check for collisions: if collision, restart with new size, if not, implement
             collided = False
             for i in range(len(linksCopy)):
-                if linksCopy[i].aabb[2][0] < 0 or self.Detect_Collision(i, linksCopy):
+                if linksCopy[i].aabb[2][0] < 0 or linksCopy[i].aabb[2][1] > 4 or self.Detect_Collision(i, linksCopy):
                     collided = True
                     break
 
