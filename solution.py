@@ -3,7 +3,6 @@ import bodyplan
 import pyrosim.pyrosim as pyrosim
 import os
 import numpy as np
-import random
 import time
 
 
@@ -88,7 +87,7 @@ class SOLUTION:
                     self.weights[row][col] = np.random.rand() * 2 - 1
                     motorMutates += 1
 
-        print(f"mutated {motorMutates} times")
+        # print(f"mutated {motorMutates} times")
 
         failCount = 0
         mutateCount = 0
