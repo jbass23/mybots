@@ -1,7 +1,9 @@
+import numpy as np
 import constants as c
 from solution import SOLUTION
 import copy
 import os
+import matplotlib.pyplot as mpl
 
 
 class PARALLEL_HILL_CLIMBER:
@@ -16,11 +18,17 @@ class PARALLEL_HILL_CLIMBER:
             self.parents[i] = SOLUTION(self.nextAvailableID)
             self.nextAvailableID += 1
 
+        self.fitnessList = np.zeros((c.populationSize, c.numberOfGenerations + 1))
+
     def Evolve(self):
         self.Evaluate(self.parents)
+        for member in range(c.populationSize):
+            self.fitnessList[member][0] = self.parents[member].fitness
 
         for currentGeneration in range(c.numberOfGenerations):
             self.Evolve_For_One_Generation()
+            for member in range(c.populationSize):
+                self.fitnessList[member][currentGeneration + 1] = self.parents[member].fitness
 
     def Evolve_For_One_Generation(self):
         self.Spawn()
@@ -65,3 +73,17 @@ class PARALLEL_HILL_CLIMBER:
 
         for i in range(c.populationSize):
             solutions[i].Wait_For_Simulation_To_End()
+
+    def Save_Data(self):
+        for i in range(c.populationSize):
+            for j in range(c.numberOfGenerations + 1):
+                self.fitnessList[i][j] *= -1
+                if self.fitnessList[i][j] < 0:
+                    self.fitnessList[i][j] = 0
+
+        np.save("data/fitnessValues.npy", self.fitnessList)
+
+        for i in range(len(self.fitnessList)):
+            mpl.plot(self.fitnessList[i], label=f"member #{i + 1}")
+        # matplotlib.pyplot.legend()
+        mpl.savefig("graphs/fitness.png", format="png")
