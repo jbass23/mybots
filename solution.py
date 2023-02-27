@@ -79,7 +79,16 @@ class SOLUTION:
         # 3. if random number is within threshold, change one of those things above
         #  - can result in zero or multiple changes
 
-        self.weights[random.randint(0, self.sensorCount - 1)][random.randint(0, c.numMotorNeurons - 1)] = random.random() * 2 - 1
+        motorMutates = 0
+        odds = 3 / (self.sensorCount * c.numMotorNeurons)
+        for row in range(self.sensorCount):
+            for col in range(c.numMotorNeurons):
+                chance = np.random.rand()
+                if chance <= odds:
+                    self.weights[row][col] = np.random.rand() * 2 - 1
+                    motorMutates += 1
+
+        print(f"mutated {motorMutates} times")
 
         failCount = 0
         mutateCount = 0
@@ -95,8 +104,8 @@ class SOLUTION:
                     else:
                         mutateCount += 1
 
-        #print(f"failed {failCount} times")
-        #print(f"mutated {mutateCount} times")
+        # print(f"failed {failCount} times")
+        # print(f"mutated {mutateCount} times")
 
     def Set_ID(self, ID):
         self.myID = ID
