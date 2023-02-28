@@ -66,34 +66,35 @@ class SOLUTION:
                                      weight=self.weights[currentRow][currentColumn])
 
     def Mutate(self):
-        # mutate:
-        #   - motors
-        #   - body
-        #       - change link direction
-        #       - change sensor status
-        #       - change one dimension of the link size
-        # PLAN:
-        # 1. loop through links
-        # 2. for each link, pick random number
-        # 3. if random number is within threshold, change one of those things above
-        #  - can result in zero or multiple changes
+        if self.fitness < -5:
+            synapseChance = 1
+            dimensionChance = 12
+        elif self.fitness < -3:
+            synapseChance = 2
+            dimensionChance = 8
+        else:
+            synapseChance = 3
+            dimensionChance = 4
 
-        motorMutates = 0
-        odds = 3 / (self.sensorCount * c.numMotorNeurons)
-        for row in range(self.sensorCount):
-            for col in range(c.numMotorNeurons):
-                chance = np.random.rand()
-                if chance <= odds:
-                    self.weights[row][col] = np.random.rand() * 2 - 1
-                    motorMutates += 1
+        # mutate a random number of synapse weights
+        if self.sensorCount != 0:
+            motorMutates = 0
+            odds = synapseChance / (self.sensorCount * c.numMotorNeurons)
+            for row in range(self.sensorCount):
+                for col in range(c.numMotorNeurons):
+                    chance = np.random.rand()
+                    if chance <= odds:
+                        self.weights[row][col] = np.random.rand() * 2 - 1
+                        motorMutates += 1
 
-        # print(f"mutated {motorMutates} times")
+            # print(f"mutated {motorMutates} times")
 
+        # mutate a random number of link dimensions
         failCount = 0
         mutateCount = 0
         for i in range(len(self.links)):
             for xyz in range(3):
-                mutateChance = np.random.randint(4)
+                mutateChance = np.random.randint(dimensionChance)
                 if mutateChance == 0:
                     mutated = self.bp.Mutate_Link_Size(i, xyz)
                     self.links = self.bp.links

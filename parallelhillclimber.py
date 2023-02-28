@@ -26,6 +26,7 @@ class PARALLEL_HILL_CLIMBER:
             self.fitnessList[member][0] = self.parents[member].fitness
 
         for currentGeneration in range(c.numberOfGenerations):
+            print(f"Generation #{currentGeneration + 1}:")
             self.Evolve_For_One_Generation()
             for member in range(c.populationSize):
                 self.fitnessList[member][currentGeneration + 1] = self.parents[member].fitness
@@ -74,16 +75,18 @@ class PARALLEL_HILL_CLIMBER:
         for i in range(c.populationSize):
             solutions[i].Wait_For_Simulation_To_End()
 
-    def Save_Data(self):
+    def Save_Data(self, x):
         for i in range(c.populationSize):
             for j in range(c.numberOfGenerations + 1):
                 self.fitnessList[i][j] *= -1
                 if self.fitnessList[i][j] < 0:
                     self.fitnessList[i][j] = 0
 
-        np.save("data/fitnessValues.npy", self.fitnessList)
+        np.save(f"data/fitnessValues{x}.npy", self.fitnessList)
 
         for i in range(len(self.fitnessList)):
             mpl.plot(self.fitnessList[i], label=f"member #{i + 1}")
-        # matplotlib.pyplot.legend()
-        mpl.savefig("graphs/fitness.png", format="png")
+        mpl.title(f"Fitness Over {c.numberOfGenerations} Generations, Seed #{x}")
+        mpl.xlabel("Number of Generations")
+        mpl.ylabel("Fitness")
+        mpl.savefig(f"graphs/fitness{x}.png", format="png")
