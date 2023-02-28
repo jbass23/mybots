@@ -4,7 +4,10 @@
 This program is designed to create a random, three-dimensional robot out of non-overlapping links and joints. Then, it
 "evolves" the creature through a Parallel Hill Climber method: a population of 50 (or less/more) robots are created
 randomly, then are randomly mutated from generation to generation. If a mutation improves fitness, it is kept. If it
-does not, it is disgarded. The final shown robot is the one that performs the best among the evolved population.
+does not, it is disgarded. The final shown robot is the one that performs the best among the evolved population. The
+fitness is a measure of how far in the negative X-axis the robot can travel in a set amount of time. In the graphs
+below, a positive fitness is shown as better to improve readability, but in reality, the more negative a fitness, the
+better.
 
 ## In Depth
 First, the code creates a random, three-dimensional body blueprint out of link and joint objects (defined in 
