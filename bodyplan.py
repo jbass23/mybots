@@ -1,5 +1,4 @@
 import copy
-
 import constants as c
 import linkobject
 import jointobject

@@ -15,6 +15,6 @@ numLinks = numpy.random.randint(3, 9)   # excludes the base
 numSensorNeurons = numLinks + 1
 numMotorNeurons = numLinks
 
-numberOfGenerations = 0
-populationSize = 1
+numberOfGenerations = 100
+populationSize = 100
 motorJointRange = 0.5

@@ -7,7 +7,9 @@ import matplotlib.pyplot as mpl
 
 
 class PARALLEL_HILL_CLIMBER:
-    def __init__(self):
+    def __init__(self, seed):
+        np.random.seed(seed)
+
         os.system("rm body*.urdf")
         os.system("rm brain*.nndf")
         os.system("rm fitness*.txt")
