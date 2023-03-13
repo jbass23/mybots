@@ -38,11 +38,12 @@ be different. A run of 500 generations with a population size of 10 takes betwee
 If you also use seeds 1-10, you can afterwards run `python3 analyze.py` to create a graph of the fitness of the best creature
 for any given generation among those ten seeds. They will all show up on the same graph, so you can compare runs against
 each other!  
-Finally, if you run `python3 showpickles.py X` (again, where _X_ is replaced with any number to select the seed), you will
+Finally, if you run `python3 showpickles.py X all` (again, where _X_ is replaced with any number to select the seed), you will
 see a series of python pop-up windows, each showing a robot that is a little more fit than the last. These robots are/were
 the fittest robots at the time, until the next shown robot evolved and took its place. They span the population, so the bodies
 are the most fit across the population. Essentially, watching these robots is like watching the significant evolutions across
-the whole evolutionary chain.
+the whole evolutionary chain. If you want to watch one specific pickled robot, run `python3 showpickles.py X Y`, where _Y_ is
+the number of the pickled robot you want to see (found at the end of the file 'pickles/run*X*_pickle*Y*.pkl').
 
 ## Images/Videos
 ### Creating a Creature:
