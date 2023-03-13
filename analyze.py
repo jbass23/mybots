@@ -5,7 +5,7 @@ import matplotlib.pyplot
 
 fitnessValues = []
 bestValues = []
-for i in range(9):
+for i in range(10):
     fitnessValues.append(np.load(f"data/fitnessValues{i+1}.npy"))
     arrayOfBest = []
     for k in range(c.numberOfGenerations + 1):
@@ -20,7 +20,7 @@ for i in range(9):
 
 for i in range(len(bestValues)):
     matplotlib.pyplot.plot(bestValues[i], label=f"population #{i+1}")
-matplotlib.pyplot.title("Members With Best Fitness Across 9 Seeds")
+matplotlib.pyplot.title("Members With Best Fitness Across 10 Seeds")
 matplotlib.pyplot.xlabel("Number of Generations")
 matplotlib.pyplot.ylabel("Fitness")
 matplotlib.pyplot.legend()
