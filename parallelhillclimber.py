@@ -4,15 +4,18 @@ from solution import SOLUTION
 import copy
 import os
 import matplotlib.pyplot as mpl
+import pickle
 
 
 class PARALLEL_HILL_CLIMBER:
     def __init__(self, seed):
-        np.random.seed(seed)
+        self.seed = seed
+        np.random.seed(self.seed)
 
         os.system("rm body*.urdf")
         os.system("rm brain*.nndf")
         os.system("rm fitness*.txt")
+        os.system(f"rm pickles/run{self.seed}*.pkl")
 
         self.parents = {}
         self.nextAvailableID = 0
@@ -21,17 +24,26 @@ class PARALLEL_HILL_CLIMBER:
             self.nextAvailableID += 1
 
         self.fitnessList = np.zeros((c.populationSize, c.numberOfGenerations + 1))
+        self.bestFitness = float('-inf')
+
+        self.pickleCount = 0
 
     def Evolve(self):
         self.Evaluate(self.parents)
         for member in range(c.populationSize):
             self.fitnessList[member][0] = self.parents[member].fitness
 
+        self.Pickle_Solution(self.Find_Fittest())
+
         for currentGeneration in range(c.numberOfGenerations):
             print(f"Generation #{currentGeneration + 1}:")
             self.Evolve_For_One_Generation()
             for member in range(c.populationSize):
                 self.fitnessList[member][currentGeneration + 1] = self.parents[member].fitness
+
+            fittest = self.Find_Fittest()
+            if self.parents[fittest].fitness < self.bestFitness:
+                self.Pickle_Solution(fittest)
 
     def Evolve_For_One_Generation(self):
         self.Spawn()
@@ -63,10 +75,7 @@ class PARALLEL_HILL_CLIMBER:
         print()
 
     def Show_Best(self):
-        fittest = 0
-        for i in self.parents:
-            if self.parents[i].fitness < self.parents[fittest].fitness:
-                fittest = i
+        fittest = self.Find_Fittest()
 
         self.parents[fittest].Start_Simulation("GUI")
 
@@ -92,3 +101,16 @@ class PARALLEL_HILL_CLIMBER:
         mpl.xlabel("Number of Generations")
         mpl.ylabel("Fitness")
         mpl.savefig(f"graphs/fitness{x}.png", format="png")
+
+    def Find_Fittest(self):
+        fittest = 0
+        for i in self.parents:
+            if self.parents[i].fitness < self.parents[fittest].fitness:
+                fittest = i
+
+        return fittest
+
+    def Pickle_Solution(self, fittest):
+        pickle.dump(self.parents[fittest], open(f"pickles/run{self.seed}_pickle{self.pickleCount}.pkl", "wb"))
+        self.pickleCount += 1
+        self.bestFitness = self.parents[fittest].fitness
