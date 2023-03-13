@@ -1,13 +1,13 @@
 # Evolving 3D Robot
 
 ## Basic Idea
-This program is designed to create a random, three-dimensional robot out of non-overlapping links and joints. Then, it
-"evolves" the creature through a Parallel Hill Climber method: a population of 50 (or less/more) robots are created
-randomly, then are randomly mutated from generation to generation. If a mutation improves fitness, it is kept. If it
-does not, it is disgarded. The final shown robot is the one that performs the best among the evolved population. The
-fitness is a measure of how far in the negative X-axis the robot can travel in a set amount of time. In the graphs
-below, a positive fitness is shown as better to improve readability, but in reality, the more negative a fitness, the
-better.
+This program is designed to create a random, three-dimensional robot out of non-overlapping links and joints, with a 
+brain of sensors, motors, and fully-connecting synapses. Then, it "evolves" the creature through a Parallel Hill 
+Climber method: a population of 10 (or less/more) robots are created randomly, then are randomly mutated from generation
+to generation. If a mutation improves fitness, it is kept. If it does not, it is disgarded. The final shown robot is
+the one that performs the best among the evolved population. Thefitness is a measure of how far in the negative X-axis
+the robot can travel in a set amount of time. In the graphs below, a positive fitness is shown as better to improve
+readability, but in reality, the more negative a fitness, the better.  
 
 ## In Depth
 First, the code creates a random, three-dimensional body blueprint out of link and joint objects (defined in 
@@ -16,7 +16,11 @@ creating a base link (`Link0`), and then one by one, adding a joint and link ont
 link. If the created joint/link pair overlaps with another, the whole process is scrapped and restarted. All links and
 joints have their absolute positions calculated and stored in the link object, as well as the link's axis-aligned 
 bounding box. This is then done 10 (`c.populationSize`) times, all a part of Generation #0.  
-Next, for each body in the population, the code loops through each synapse and has a small chance of randomly 
+The creature moves via a network of sensors, motors, and synapses. Certain links are designated as sensors (green links 
+are sensors, blue links are not), sending values of 1 or 0 if the link is in contact with the ground or not. Each joint 
+on the robot is a motor, and the "brain" is a fully connected system, where there is a synapse between each sensor and
+each motor. Each system is initialized with a random weight.  
+Next, for each robot in the population, the code loops through each synapse and has a small chance of randomly 
 reassigning the synapse a different weight. Then, it loops through each link, and for each dimension of each link, there
 is a small chance that the link's size in that dimension is randomly reassigned. This mutation process could result in
 many or few mutations. As the fitness of the robot increases, the odds of a synapse or link dimension mutating decrease.
@@ -77,11 +81,11 @@ number (currently set to `numLinks + 1`; DO NOT CHANGE)
 ### Example of Creature Evolution:
 <https://youtu.be/hoS8XTKo2eQ>
 
-### Fitness Graph (100 Generations, Population Size of 100):
-![A graph of the fitnesses of a population of 100 across 100 generations](graphs/fitness1.png "Graph: 100, 100")
+### Fitness Graph (500 Generations, Population Size of 10):
+![A graph of the fitnesses of a population of 500 across 10 generations](graphs/fitness1.png "Graph: 500, 10")
 
-### Fitness Graph (50 Generations, Population Size of 50):
-![A graph of the fitnesses of a population of 50 across 50 generations](graphs/fitness4.png "Graph: 50, 50")
+### Fitness Graph (500 Generations, Population Size of 10):
+![A graph of the fitnesses of a population of 500 across 10 generations](graphs/fitness4.png "Graph: 500, 10")
 
 ### Fitness Curves Across 5 Different Populations, Showing the Fitness of the Best Robot at the Given Generation:
 ![A graph of five fitness curves the best robots](graphs/fitnessBests.png "Graph: 5 Curves")
