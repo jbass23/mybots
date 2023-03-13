@@ -8,13 +8,18 @@ import time
 
 class SOLUTION:
     def __init__(self, nextAvailableID):
+        self.numLinks = c.numLinks
+        self.numSensorNeurons = c.numSensorNeurons
+        self.numMotorNeurons = c.numMotorNeurons
+
         self.myID = nextAvailableID
-        self.sensorBoolArray = np.random.randint(2, size=c.numSensorNeurons)
+        self.sensorBoolArray = np.random.randint(2, size=self.numSensorNeurons)
         self.bp = bodyplan.BODY_PLAN()
         self.links, self.joints = self.bp.Create_Blueprint()
 
         self.sensorCount = np.sum(self.bp.sensorBoolArray)
-        self.weights = np.random.rand(self.sensorCount, c.numMotorNeurons) * 2 - 1
+        self.weights = np.random.rand(self.sensorCount, self.numMotorNeurons) * 2 - 1
+
 
     def Start_Simulation(self, directOrGUI, ampersand=True):
         self.Create_World()
@@ -24,7 +29,7 @@ class SOLUTION:
         if ampersand:
             os.system(f"python3 simulate.py {directOrGUI} {self.myID} 2&>1 &")
         else:
-            os.system(f"python3 simulate.py {directOrGUI} {self.myID}")
+            os.system(f"python3 simulate.py {directOrGUI} {self.myID} 2&>1")
 
     def Wait_For_Simulation_To_End(self):
         while not os.path.exists(f"fitness{self.myID}.txt"):
@@ -55,7 +60,7 @@ class SOLUTION:
         pyrosim.Start_NeuralNetwork(f"brain{self.myID}.nndf")
         sensorIndex = 0
 
-        for i in range(c.numSensorNeurons):
+        for i in range(self.numSensorNeurons):
             if self.bp.sensorBoolArray[i] == 1:
                 pyrosim.Send_Sensor_Neuron(name=sensorIndex, linkName=f"Link{sensorIndex}")
                 sensorIndex += 1
@@ -64,7 +69,7 @@ class SOLUTION:
             pyrosim.Send_Motor_Neuron(name=sensorIndex+i, jointName=self.joints[i].name)
 
         for currentRow in range(self.sensorCount):
-            for currentColumn in range(c.numMotorNeurons):
+            for currentColumn in range(self.numMotorNeurons):
                 pyrosim.Send_Synapse(sourceNeuronName=currentRow, targetNeuronName=currentColumn+self.sensorCount,
                                      weight=self.weights[currentRow][currentColumn])
 
@@ -82,9 +87,9 @@ class SOLUTION:
         # mutate a random number of synapse weights
         if self.sensorCount != 0:
             motorMutates = 0
-            odds = synapseChance / (self.sensorCount * c.numMotorNeurons)
+            odds = synapseChance / (self.sensorCount * self.numMotorNeurons)
             for row in range(self.sensorCount):
-                for col in range(c.numMotorNeurons):
+                for col in range(self.numMotorNeurons):
                     chance = np.random.rand()
                     if chance <= odds:
                         self.weights[row][col] = np.random.rand() * 2 - 1

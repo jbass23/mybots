@@ -1,7 +1,6 @@
 from solution import SOLUTION
 import pickle
 import sys
-import os
 
 
 seed = int(sys.argv[1])
@@ -12,5 +11,5 @@ while True:
         member = pickle.load(open(f"pickles/run{seed}_pickle{i}.pkl", "rb"))
         member.Start_Simulation("GUI", ampersand=False)
         i += 1
-    except:
+    except FileNotFoundError:
         break
