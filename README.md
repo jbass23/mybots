@@ -15,16 +15,16 @@ First, the code creates a random, three-dimensional body blueprint out of link a
 creating a base link (`Link0`), and then one by one, adding a joint and link onto a random face of a random already made
 link. If the created joint/link pair overlaps with another, the whole process is scrapped and restarted. All links and
 joints have their absolute positions calculated and stored in the link object, as well as the link's axis-aligned 
-bounding box. This is then done 50 (`c.populationSize`) times, all a part of Generation #0.  
+bounding box. This is then done 10 (`c.populationSize`) times, all a part of Generation #0.  
 Next, for each body in the population, the code loops through each synapse and has a small chance of randomly 
 reassigning the synapse a different weight. Then, it loops through each link, and for each dimension of each link, there
 is a small chance that the link's size in that dimension is randomly reassigned. This mutation process could result in
 many or few mutations. As the fitness of the robot increases, the odds of a synapse or link dimension mutating decrease.
-This is because large mutations can assist a brand-new robot in getting on the right path, large mutations of 
+This is because large mutations can assist a brand-new robot in getting on the right path, but large mutations of 
 established robots are less likely to improve the fitness than smaller mutations.  
 If a mutation proved successful, i.e. the fitness of the mutated creatrue was better than that of the original, the 
 mutated creature replaces the original in the population and creates its own "children." Otherwise, the child is
-erased, and the parent creates a new child. This evolution process takes place for 50 (`c.NumberOfGenerations`)
+erased, and the parent creates a new child. This evolution process takes place for 500 (`c.NumberOfGenerations`)
 generations. Finally, we find the robot in the final generation with the best fitness in the population and displays it
 in a Python GUI.
 
@@ -32,9 +32,17 @@ in a Python GUI.
 Download the files and type `python3 search.py X` into your terminal to run, where _X_ is replaced with any number to
 select the seed (it runs `np.random.seed(X)`). A python pop-up should appear with your random creature. Run again for a
 new creature, and select a different seed, then back to the original to get replicate your ludobots. For my testing, I
-used seeds 1, 2, 3, 4, and 5 (the image is saved to a file called "fitness*X*.png). If you also use seeds 1-5, you can
-afterwards run `python3 analyze.py` to create a graph of the fitness of the best creature for any given generation among
-those five seeds. 
+used seeds 1, 2, ..., 10 (the image is saved to a file called "fitness*X*.png). Each simulation of a creature took about 0.2
+seconds on my machine (ten generations with a population size of ten took about twenty seconds), although your machine might
+be different. A run of 500 generations with a population size of 10 takes between fifteen and twenty minutes.  
+If you also use seeds 1-10, you can afterwards run `python3 analyze.py` to create a graph of the fitness of the best creature
+for any given generation among those ten seeds. They will all show up on the same graph, so you can compare runs against
+each other!  
+Finally, if you run `python3 showpickles.py X` (again, where _X_ is replaced with any number to select the seed), you will
+see a series of python pop-up windows, each showing a robot that is a little more fit than the last. These robots are/were
+the fittest robots at the time, until the next shown robot evolved and took its place. They span the population, so the bodies
+are the most fit across the population. Essentially, watching these robots is like watching the significant evolutions across
+the whole evolutionary chain.
 
 ## Images/Videos
 ### Creating a Creature:
