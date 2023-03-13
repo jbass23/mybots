@@ -22,7 +22,7 @@ is a small chance that the link's size in that dimension is randomly reassigned.
 many or few mutations. As the fitness of the robot increases, the odds of a synapse or link dimension mutating decrease.
 This is because large mutations can assist a brand-new robot in getting on the right path, but large mutations of 
 established robots are less likely to improve the fitness than smaller mutations.  
-If a mutation proved successful, i.e. the fitness of the mutated creatrue was better than that of the original, the 
+If a mutation proved successful, i.e. the fitness of the mutated creature was better than that of the original, the 
 mutated creature replaces the original in the population and creates its own "children." Otherwise, the child is
 erased, and the parent creates a new child. This evolution process takes place for 500 (`c.NumberOfGenerations`)
 generations. Finally, we find the robot in the final generation with the best fitness in the population and displays it
@@ -43,7 +43,25 @@ see a series of python pop-up windows, each showing a robot that is a little mor
 the fittest robots at the time, until the next shown robot evolved and took its place. They span the population, so the bodies
 are the most fit across the population. Essentially, watching these robots is like watching the significant evolutions across
 the whole evolutionary chain. If you want to watch one specific pickled robot, run `python3 showpickles.py X Y`, where _Y_ is
-the number of the pickled robot you want to see (found at the end of the file 'pickles/run*X*_pickle*Y*.pkl').
+the number of the pickled robot you want to see (found at the end of the file "pickles/run*X*_pickle*Y*.pkl"). If you 
+run this before you run `python3 search.py X`, you will see my results. If you run after, you'll see your results (although
+they should be the same due to the random seed being the same for both).
+
+## Constants
+In the file "constants.py," there are a few variables used throughout the codebase that dictate a lot about how the robot
+is generated and evolved. You can change these constants to taylor your evolutionary outcomes! Here are the constants and
+their purposes:
+* `steps`: the number of frames/refreshes a single simulation lasts (currently 1000)
+* `numLinks`: the number of links a robot contains, excluding the base (currently set to a random number between 3 and 9)
+* `numSensorNeurons`: the number of potential sensor neurons; the number of actual sensor neurons is between 0 and this 
+number (currently set to `numLinks + 1`; DO NOT CHANGE)
+* `numMotorNeurons`: the number of motor neurons (currently set to `numLinks`; DO NOT CHANGE)
+* `motorJointRange`: the dampening factor on every joint's range of motion (currently set to 0.5)
+  * `motorJointRange = 0`: the joints will not move
+  * `motorJointRange = 1`: the joints will move their full range
+  * I would recommend keeping this variable in the 0.2 - 0.6 range in order to keep motor behavior productive and realistic
+* `numberOfGenerations`: the number of generations the simulation will run for, not including generation #0 (currently set to 500)
+* `populationSize`: the number of robots in being evaluated concurrently in each generation (currently set to 10)
 
 ## Images/Videos
 ### Creating a Creature:
