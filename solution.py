@@ -16,12 +16,15 @@ class SOLUTION:
         self.sensorCount = np.sum(self.bp.sensorBoolArray)
         self.weights = np.random.rand(self.sensorCount, c.numMotorNeurons) * 2 - 1
 
-    def Start_Simulation(self, directOrGUI):
+    def Start_Simulation(self, directOrGUI, ampersand=True):
         self.Create_World()
         self.Create_Body()
         self.Create_Brain()
 
-        os.system(f"python3 simulate.py {directOrGUI} {self.myID} 2&>1 &")
+        if ampersand:
+            os.system(f"python3 simulate.py {directOrGUI} {self.myID} 2&>1 &")
+        else:
+            os.system(f"python3 simulate.py {directOrGUI} {self.myID}")
 
     def Wait_For_Simulation_To_End(self):
         while not os.path.exists(f"fitness{self.myID}.txt"):
