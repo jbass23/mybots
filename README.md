@@ -67,6 +67,77 @@ number (currently set to `numLinks + 1`; DO NOT CHANGE)
 * `numberOfGenerations`: the number of generations the simulation will run for, not including generation #0 (currently set to 500)
 * `populationSize`: the number of robots in being evaluated concurrently in each generation (currently set to 10)
 
+## Files and Descriptions
+### analyze.py
+* Graphs the fitness of the most fit robot over all generations for seeds 1-10
+* Change the value in the first for loop range to change the number of seeds shown
+
+### bodyplan.py
+* Creates the blueprint for the robot's body
+* Doesn't actually create the body
+
+### constants.py
+* Holds all the constants used throughout the codebase
+* Described more thoroughly in the section above
+
+### jointobject.py
+* Defines the JOINT object
+* Used for bodyplan.py
+
+### linkobject.py
+* Defines the LINK object
+* Used for bodyplan.py
+
+### motor.py
+* Defines the MOTOR object
+* Used to turn a joint into a motor for motion
+
+### parallelhillclimber.py
+* Handles the evolution process for all members of a population in parallel for however many generations defined
+* For each generation:
+  * Creates a set of "children" by cloning the previous generation
+  * Mutates the children
+  * Evaluates the children's fitness
+  * Selects the fitter between a parent and a child to continue with
+* Saves the population's fitness data into data/fitnessValues*X*.npy
+* Pickles the fittest robot every time there is a new fittest robot
+
+### robot.py
+* Reads in values from the sensors
+* Makes the motors act given a value from the sensors
+* Updates the neural network and brain*X*.nndf file
+* Records the robot's fitness
+
+### search.py
+* Runs the evolutionary process
+* Shows the best robot after the final generation
+
+### sensor.py
+* Defines the SENSOR object
+* Used to turn a link into a sensor for sensing
+
+### showpickles.py
+* Shows a pickled robot(s) from a previous run of search.py
+* Can be used to show a specific robot from a seed or all of a seed's pickled robots sequentially
+
+### simulate.py
+* Runs a single simulation
+* Gets the fitness after the simulation
+* Can be used to run DIRECT (without showing you) or GUI (showing you)
+
+### simulation.py
+* Defines how a robot runs
+* Gets the fitness of a simulation
+
+### solution.py
+* Initializes the world
+* Reads from bodyplan.py to actually create the robot's body
+* Creates the robot's brain
+* Mutates the robot's brain and body
+
+### world.py
+* Loads the world and the floor
+
 ## Images/Videos
 ### Creating a Creature:
 ![A diagram of the body generating process](images/diagram.jpg "Body Diagram")
