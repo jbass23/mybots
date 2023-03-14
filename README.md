@@ -212,14 +212,17 @@ repository for legacy purposes.
 ### Example of Creature Evolution:
 <https://youtu.be/hoS8XTKo2eQ>
 
-### Fitness Graph (500 Generations, Population Size of 10):
-![A graph of the fitnesses of a population of 500 across 10 generations](graphs/fitness1.png "Graph: 500, 10")
+### Fitness Graph (100 Generations, Population Size of 100):
+![A graph of the fitnesses of a population of 100 across 100 generations](graphs/fitness100-100.png "Graph: 100, 100")
 
-### Fitness Graph (500 Generations, Population Size of 10):
-![A graph of the fitnesses of a population of 500 across 10 generations](graphs/fitness4.png "Graph: 500, 10")
+### Fitness Graph (50 Generations, Population Size of 50):
+![A graph of the fitnesses of a population of 50 across 50 generations](graphs/fitness50-50.png "Graph: 50, 50")
 
-### Fitness Curves Across 5 Different Populations, Showing the Fitness of the Best Robot at the Given Generation:
-![A graph of five fitness curves the best robots](graphs/fitnessBests.png "Graph: 5 Curves")
+### Fitness Graph (500 Generations, Population Size of 10, from This Experiment):
+![A graph of the fitnesses of a population of 500 across 10 generations](graphs/fitness3.png "Graph: 500, 10")
+
+### Fitness Curves Across 10 Different Seeds, Showing the Fitness of the Best Robot at Every Given Generation:
+![A graph of ten fitness curves of the best robots](graphs/fitnessBests.png "Graph: 10 Curves")
 
 ## Credits
 * Ludobots from Dr. Josh Bongard and the University of Vermont: <https://www.reddit.com/r/ludobots/wiki/installation/>
