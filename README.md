@@ -199,17 +199,23 @@ repository for legacy purposes.
   * If you set `c.populationSize = 1`, parallelhillclimber.py behaves as hillclimber.py did
 
 ## Images/Videos
-### Creating a Creature:
+### Creating a Robot:
 ![A diagram of the body generating process](images/diagram.jpg "Body Diagram")
 
-### Mutating a Creature:
+### Mutating a Robot's Body:
 ![A diagram of the body mutation process](images/mutation.jpg "Mutation Diagram")
 
-### Example Creatures:
+### Mutating a Robot's Brain
+image goes here
+
+### Example Robot:
 ![A picture of one random creature](images/creature1.png "Random Creature #1")
 ![A picture of another random creature](images/creature2.png "Random Creature #2")
 
-### Example of Creature Evolution:
+### Example of Robot Evolution:
+![A gif of an unevolved and evolved robot](images/evolution.gif "Robot Evolution")
+
+### Longer Video on Full Evolutionary Process:
 <https://youtu.be/hoS8XTKo2eQ>
 
 ### Fitness Graph (100 Generations, Population Size of 100):
