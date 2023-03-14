@@ -183,7 +183,7 @@ are as follows:
 Delete the "2&>1" in solution.py to debug more easily
 
 ### Legacy Files
-These are files were used in previous branches, but no longer are utilized or in use. They are only kept in this
+These are files that were used in previous branches, but no longer are utilized or in use. They are only kept in this
 repository for legacy purposes.
 * generate.py
   * Creates the world, body, and brain for simulations
