@@ -203,12 +203,12 @@ repository for legacy purposes.
 ![A diagram of the body generating process](images/diagram.jpg "Body Diagram")
 
 ### Mutating a Robot's Body:
-![A diagram of the body mutation process](images/mutation.jpg "Mutation Diagram")
+![A diagram of the body mutation process](images/mutation_body.jpg "Body Mutation Diagram")
 
 ### Mutating a Robot's Brain
-image goes here
+![A diagram of the brain mutation process](images/mutation_brain.jpg "Brain Mutation Diagram")
 
-### Example Robot:
+### Example Robots:
 ![A picture of one random robot](images/creature1.png "Random robot #1")
 ![A picture of another random robot](images/creature2.png "Random robot #2")
 
@@ -229,6 +229,9 @@ image goes here
 
 ### Fitness Curves Across 10 Different Seeds, Showing the Fitness of the Best Robot at Every Given Generation:
 ![A graph of ten fitness curves of the best robots](graphs/fitnessBests.png "Graph: 10 Curves")
+
+## Results
+more in depth results stuff will be described here
 
 ## Credits
 * Ludobots from Dr. Josh Bongard and the University of Vermont: <https://www.reddit.com/r/ludobots/wiki/installation/>
