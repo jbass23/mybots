@@ -182,6 +182,22 @@ are as follows:
   * If you customize this code, be aware that errors and warnings might end up in this file and not in the terminal. 
 Delete the "2&>1" in solution.py to debug more easily
 
+### Legacy Files
+These are files were used in previous branches, but no longer are utilized or in use. They are only kept in this
+repository for legacy purposes.
+* generate.py
+  * Creates the world, body, and brain for simulations
+  * Replaced by solution.py
+* hillclimber.py
+  * Handles the evolution process for however many generations defined
+  * For each generation:
+    * Creates a "child" by cloning the previous generation
+    * Mutates the child
+    * Evaluates the child's fitness
+    * Selects the fitter between the parent and the child to continue with
+  * Replaced by parallelhillclimber.py
+  * If you set `c.populationSize = 1`, parallelhillclimber.py behaves as hillclimber.py did
+
 ## Images/Videos
 ### Creating a Creature:
 ![A diagram of the body generating process](images/diagram.jpg "Body Diagram")
