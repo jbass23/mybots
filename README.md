@@ -2,7 +2,7 @@
 
 ## Basic Idea
 This program is designed to create a random, three-dimensional robot out of non-overlapping links and joints, with a 
-brain of sensors, motors, and fully-connecting synapses. Then, it "evolves" the creature through a Parallel Hill 
+brain of sensors, motors, and fully-connecting synapses. Then, it "evolves" the robotrobot through a Parallel Hill 
 Climber method: a population of 10 (or less/more) robots are created randomly, then are randomly mutated from generation
 to generation. If a mutation improves fitness, it is kept. If it does not, it is disgarded. The final shown robot is
 the one that performs the best among the evolved population. Thefitness is a measure of how far in the negative X-axis
@@ -16,7 +16,7 @@ creating a base link (`Link0`), and then one by one, adding a joint and link ont
 link. If the created joint/link pair overlaps with another, the whole process is scrapped and restarted. All links and
 joints have their absolute positions calculated and stored in the link object, as well as the link's axis-aligned 
 bounding box. This is then done 10 (`c.populationSize`) times, all a part of Generation #0.  
-The creature moves via a network of sensors, motors, and synapses. Certain links are designated as sensors (green links 
+The robot moves via a network of sensors, motors, and synapses. Certain links are designated as sensors (green links 
 are sensors, blue links are not), sending values of 1 or 0 if the link is in contact with the ground or not. Each joint 
 on the robot is a motor, and the "brain" is a fully connected system, where there is a synapse between each sensor and
 each motor. Each system is initialized with a random weight.  
@@ -26,20 +26,20 @@ is a small chance that the link's size in that dimension is randomly reassigned.
 many or few mutations. As the fitness of the robot increases, the odds of a synapse or link dimension mutating decrease.
 This is because large mutations can assist a brand-new robot in getting on the right path, but large mutations of 
 established robots are less likely to improve the fitness than smaller mutations.  
-If a mutation proved successful, i.e. the fitness of the mutated creature was better than that of the original, the 
-mutated creature replaces the original in the population and creates its own "children." Otherwise, the child is
+If a mutation proved successful, i.e. the fitness of the mutated robot was better than that of the original, the 
+mutated robot replaces the original in the population and creates its own "children." Otherwise, the child is
 erased, and the parent creates a new child. This evolution process takes place for 500 (`c.NumberOfGenerations`)
 generations. Finally, we find the robot in the final generation with the best fitness in the population and displays it
 in a Python GUI.
 
 ## Running the Program
 Download the files and type `python3 search.py X` into your terminal to run, where _X_ is replaced with any number to
-select the seed (it runs `np.random.seed(X)`). A python pop-up should appear with your random creature. Run again for a
-new creature, and select a different seed, then back to the original to get replicate your ludobots. For my testing, I
-used seeds 1, 2, ..., 10 (the image is saved to a file called "fitness*X*.png). Each simulation of a creature took about 0.2
+select the seed (it runs `np.random.seed(X)`). A python pop-up should appear with your random robot. Run again for a
+new robot, and select a different seed, then back to the original to get replicate your ludobots. For my testing, I
+used seeds 1, 2, ..., 10 (the image is saved to a file called "fitness*X*.png). Each simulation of a robot took about 0.2
 seconds on my machine (ten generations with a population size of ten took about twenty seconds), although your machine might
 be different. A run of 500 generations with a population size of 10 takes between fifteen and twenty minutes.  
-If you also use seeds 1-10, you can afterwards run `python3 analyze.py` to create a graph of the fitness of the best creature
+If you also use seeds 1-10, you can afterwards run `python3 analyze.py` to create a graph of the fitness of the best robot
 for any given generation among those ten seeds. They will all show up on the same graph, so you can compare runs against
 each other!  
 Finally, if you run `python3 showpickles.py X all` (again, where _X_ is replaced with any number to select the seed), you will
@@ -209,8 +209,8 @@ repository for legacy purposes.
 image goes here
 
 ### Example Robot:
-![A picture of one random creature](images/creature1.png "Random Creature #1")
-![A picture of another random creature](images/creature2.png "Random Creature #2")
+![A picture of one random robot](images/creature1.png "Random robot #1")
+![A picture of another random robot](images/creature2.png "Random robot #2")
 
 ### Example of Robot Evolution:
 ![A gif of an unevolved and evolved robot](images/evolution.gif "Robot Evolution")
