@@ -138,6 +138,50 @@ number (currently set to `numLinks + 1`; DO NOT CHANGE)
 ### world.py
 * Loads the world and the floor
 
+### world.sdf
+* Describes the current world for pybullet
+* Currently empty, so technically unnecessary; will be created upon running search.py if deleted
+* This is where added world elements would show up
+
+### data/
+* Where numpy arrays of fitness values for various runs are stored
+* Accessed by analyze.py to graph best fitness
+
+### graphs/
+* Where fitness graphs are stored
+* Created after a run for a specific seed
+* Where analyze.py stores its graph
+
+### images/
+* Where images are stored for this README.md file
+
+### pickles/
+* Where robots that improve the maximum fitness are stored
+* Accessed by showpickles.py to show previous robots
+
+### pyrosim/
+* Where all the pyrosim code is stored
+* I made a few changes to help my simulations; check out previous commits to this folder to see!
+
+### Files That Running the Program Will Create
+Some files that are important to the running of this program are not created until the run begins, and some are
+subsequently deleted. They haven't been committed to this repository, as they'll be written over by your runs, but they
+are as follows:
+* body*X*.urdf
+  * Stores the body for simulation number *X* in a language that pyrosim can understand
+  * Deleted during run to avoid cluttering directory
+* brain*X*.nndf
+  * Stores the brain for simulation number *X* in a language that pyrosim can understand
+  * Deleted during run to avoid cluttering directory
+* fitness*X*.txt
+  * Stores the fitness for simulation number *X* to be used across files
+  * Deleted during run to avoid cluttering directory
+* 1
+  * Stores various pybullet and pyrosim print statements that print whenever the simulation is run
+  * Stored here by the "2&>1" in the lines that run simulate.py in solution.py
+  * If you customize this code, be aware that errors and warnings might end up in this file and not in the terminal. 
+Delete the "2&>1" in solution.py to debug more easily
+
 ## Images/Videos
 ### Creating a Creature:
 ![A diagram of the body generating process](images/diagram.jpg "Body Diagram")
