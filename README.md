@@ -216,7 +216,7 @@ repository for legacy purposes.
 ![A gif of an unevolved and evolved robot](images/evolution.gif "Robot Evolution")
 
 ### Longer Video on Full Evolutionary Process:
-<https://youtu.be/hoS8XTKo2eQ>
+<https://youtu.be/K4y3jUs4cLU>
 
 ### Fitness Graph (100 Generations, Population Size of 100):
 ![A graph of the fitnesses of a population of 100 across 100 generations](graphs/fitness100-100.png "Graph: 100, 100")
@@ -231,7 +231,19 @@ repository for legacy purposes.
 ![A graph of ten fitness curves of the best robots](graphs/fitnessBests.png "Graph: 10 Curves")
 
 ## Results
-more in depth results stuff will be described here
+As a general rule, the more generations there are, the better a robot's end fitness is. This is to be expected, as a
+robot's fitness can never get worse. Usually, the best robots of a population ended with a fitness of around -7 or -8.
+However, there were some outliers. Seed #4's best robot reached an all-time best fitness of -10, ending around -10.4.
+On the other hand, seed #2's best robot only got to just below -6, which was quite low for a best robot.  
+There were also some trends I noticed in the body shapes of successful robots. Robots with good fitnesses tended to have
+a sort of hopping motion, jumping along on one "foot," a lowermost sensor link that propelled it forward. There were 
+also a few robots that had a similar strategy for motion, just adding a second leg to help balance (one-legged hopping
+robots often fell over towards the end of the simulation). Another observation I made is that smaller robots (either
+less links or links of smaller size) tended to be more likely to succeed. Finally, early on in my coding, successful
+robots tended to be really tall and just sort of fall over. I felt that this was against the spirit of the experiment, 
+so I added a "ceiling" that blocks can't be generated past, and this prevented this from happen. However, there was one
+very clever robot (I believe seed #7) that coiled itself up in order to spring out and flop over. I decided to leave it
+in due to its determination.
 
 ## Credits
 * Ludobots from Dr. Josh Bongard and the University of Vermont: <https://www.reddit.com/r/ludobots/wiki/installation/>
