@@ -53,7 +53,7 @@ they should be the same due to the random seed being the same for both).
 
 ## Constants
 In the file "constants.py," there are a few variables used throughout the codebase that dictate a lot about how the robot
-is generated and evolved. You can change these constants to taylor your evolutionary outcomes! Here are the constants and
+is generated and evolved. You can change these constants to tailor your evolutionary outcomes! Here are the constants and
 their purposes:
 * `steps`: the number of frames/refreshes a single simulation lasts (currently 1000)
 * `numLinks`: the number of links a robot contains, excluding the base (currently set to a random number between 3 and 9)
